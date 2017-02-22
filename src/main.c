@@ -16,10 +16,10 @@ int main(int argc, char * argv[]) {
 	
 	if (solved == NULL)
 		printf("Not factorable.\n");
-	else {
-		printf("%s\n", quadratic_to_string(q));
-		printf("%d(%dx + %d)(%dx + %d)\n", *solved, *(solved + 1), *(solved + 2), *(solved + 3), *(solved + 4));
-	}
+	else
+		printf("%s = %d(%dx + %d)(%dx + %d)\n",
+		quadratic_to_string(q), *solved, *(solved + 1), *(solved + 2),
+		*(solved + 3), *(solved + 4));
 	
 	return 0;
 }
