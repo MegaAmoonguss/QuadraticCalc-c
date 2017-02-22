@@ -67,7 +67,8 @@ int * get_working_factors(Quadratic * q) {
 	/* check for working factors */
 	int len = *factors;
 	for (int i = 0; i < len; i++) {
-		if (*(factors + 1 + i
+		if (*(factors + 1 + i))
+			printf("");
 	}
 	
 	return 0;
