@@ -131,9 +131,7 @@ int * solve(Quadratic * q) {
 	 * a(bx + c)(dx + e) */
 	 
 	 Quadratic * temp = malloc(sizeof(Quadratic));
-	 temp->a = q->a;
-	 temp->b = q->b;
-	 temp->c = q->c;
+	 memcpy(temp, q, sizeof(Quadratic));
 	 
 	 int * solved = malloc(5 * sizeof(int));
 	 *solved = gcd(temp->a, gcd(temp->b, temp->c));
