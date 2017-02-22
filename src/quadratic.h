@@ -8,7 +8,9 @@ typedef struct {
 } Quadratic;
 
 void print_quadratic(Quadratic * q);
+int gcd(int a, int b);
 int * factor(int n);
 int * get_working_factors(Quadratic * q);
+int * solve(Quadratic * q);
 
-#endif
+#endif /* QUADRATIC_H_ */

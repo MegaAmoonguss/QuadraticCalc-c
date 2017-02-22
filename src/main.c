@@ -1,30 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include "quadratic.h"
 
 int main() {
-	int num = 15;
-	
-	clock_t begin = clock();
-	int * factors = factor(num);
-	clock_t end = clock();
-	
-	printf("%d\n", *factors);
-	for (int i = 0; i < *factors; i++)
-		printf("%d ", *(factors + 1 + i));
-	printf("\nTime: %f\n\n", (double)(end-begin) / CLOCKS_PER_SEC);
-	
 	Quadratic * q = malloc(sizeof(Quadratic));
 	q->a = 5;
 	q->b = -5;
-	q->c = -361;
-	int * working = get_working_factors(q);
+	q->c = -360;
+	int * solved = solve(q);
 	
-	if (working == NULL)
+	if (solved == NULL)
 		printf("Not factorable.\n");
-	else
-		printf("%d %d\n", *working, *(working + 1));
+	else {
+		print_quadratic(q);
+		printf("%d(%dx + %d)(%dx + %d)\n", *solved, *(solved + 1), *(solved + 2), *(solved + 3), *(solved + 4));
+	}
 	
 	return 0;
 }

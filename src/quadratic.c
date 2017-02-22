@@ -14,11 +14,16 @@ int compare_int(const void* a, const void* b) {
     return *(int*)a < *(int*)b ? -1 : 1;
 }
 
+int gcd(int a, int b) {
+	int divisor = abs(b == 0 ? a : gcd(b, a % b));
+	return a < 0 ? -1 * divisor : divisor;
+}  
 
 int * factor(int n) {
-	/* Factors an integer n. Returns a pointer to the factors. The value
-	 * at the pointer is the number of factors, the factors themselves
-	 * start at the next index (starting with 1, ending with n). */
+	/* Factors an integer n. Returns a pointer to an array of the
+	 * factors. The value at the pointer is the number of factors, the
+	 * factors themselves start at the next index (starting with 1,
+	 * ending with n). */
 	 
 	if (n == 0)
 		return 0;
@@ -61,6 +66,8 @@ int * factor(int n) {
 }
 
 int * get_working_factors(Quadratic * q) {
+	/* Returns a pointer to an array of the factors of q->a * q->c that
+	 * add up to q->bb */
 	int n = q->a * q->c;
 	int * factors = factor(n);
 	int * working = malloc(2 * sizeof(int));
@@ -109,3 +116,34 @@ int * get_working_factors(Quadratic * q) {
 	
 	return NULL;
 }
+
+int * solve(Quadratic * q) {
+	/* Returns a pointer to an array of the coefficients of the factored
+	 * quadratic. The array is in the form [a, b, c, d, e], representing
+	 * a(bx + c)(dx + e) */
+	 
+	 Quadratic * temp = malloc(sizeof(Quadratic));
+	 temp->a = q->a;
+	 temp->b = q->b;
+	 temp->c = q->c;
+	 
+	 int * solved = malloc(5 * sizeof(int));
+	 *solved = gcd(temp->a, gcd(temp->b, temp->c));
+	 
+	 temp->a /= *solved;
+	 temp->b /= *solved;
+	 temp->c /= *solved;
+	 
+	 if (!get_working_factors(temp))
+		return NULL;
+	 int * working = get_working_factors(temp);
+	 
+	 int expanded[4] = {temp->a, *working, *(working + 1), temp->c};
+	 
+	 *(solved + 1) = gcd(expanded[0], expanded[1]);
+	 *(solved + 2) = gcd(expanded[2], expanded[3]);
+	 *(solved + 3) = expanded[0] / *(solved + 1);
+	 *(solved + 4) = expanded[1] / *(solved + 1);
+	 
+	 return solved;
+ }
