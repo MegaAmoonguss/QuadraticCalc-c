@@ -1,2 +1,2 @@
 # QuadraticCalc-c
-Some shitty program idk
+A quadratic factoring calculator written in C.
