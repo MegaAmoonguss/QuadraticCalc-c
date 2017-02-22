@@ -1,12 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 #include "quadratic.h"
 
 #define CHUNK_SIZE 10
 
-void print_quadratic(Quadratic * q) {
-	printf("%dx^2 + %dx + %d\n", q->a, q->b, q->c);
+char * quadratic_to_string(Quadratic * q) {
+	static char s[50];
+	sprintf(s, "%dx^2 + %dx + %d", q->a, q->b, q->c);
+	
+	return s;
 }
 
 int compare_int(const void* a, const void* b) {
