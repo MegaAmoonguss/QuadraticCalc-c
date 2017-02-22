@@ -18,8 +18,13 @@ int main() {
 	Quadratic * q = malloc(sizeof(Quadratic));
 	q->a = 5;
 	q->b = -5;
-	q->c = -360;
-	print_quadratic(q);
+	q->c = -361;
+	int * working = get_working_factors(q);
+	
+	if (working == NULL)
+		printf("Not factorable.\n");
+	else
+		printf("%d %d\n", *working, *(working + 1));
 	
 	return 0;
 }

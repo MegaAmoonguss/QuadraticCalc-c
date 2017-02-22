@@ -63,17 +63,49 @@ int * factor(int n) {
 int * get_working_factors(Quadratic * q) {
 	int n = q->a * q->c;
 	int * factors = factor(n);
+	int * working = malloc(2 * sizeof(int));
 	
-	/* check for working factors */
 	int len = *factors;
-	for (int i = 0; i < len; i++) {
-		if (*(factors + 1 + i))
-			printf("");
+	
+	if (q->b >= 0) {
+		/* check using two positives */
+		for (int i = 0; i < (len / 2) + 1; i++) {
+			if (*(factors + 1 + i) + *(factors + len - i) == q->b) {
+				*working = *(factors + 1 + i);
+				*(working + 1) = *(factors + len - i);
+				return working;
+			}
+		}
+		
+		/* check using a positive and a smaller or equal negative */
+		for (int i = 0; i < (len / 2) + 1; i++) {
+			if ((-1 * *(factors + 1 + i)) + *(factors + len - i) == q->b) {
+				*working = -1 * *(factors + 1 + i);
+				*(working + 1) = *(factors + len - i);
+				return working;
+			}
+		}
 	}
 	
-	return 0;
-}
-
-int * solve(Quadratic * q) {
-	return 0;
+	if (q->b < 0) {
+		/* check using two negatives */
+		for (int i = 0; i < (len / 2); i++) {
+			if (*(factors + 1 + i) + *(factors + len - i) == q->b) {
+				*working = *(factors + 1 + i);
+				*(working + 1) = *(factors + len - i);
+				return working;
+			}
+		}
+		
+		/* check using a positive and a larger negative */
+		for (int i = 0; i < (len / 2); i++) {
+			if (*(factors + 1 + i) + (-1 * *(factors + len - i)) == q->b) {
+				*working = *(factors + 1 + i);
+				*(working + 1) = -1 * *(factors + len - i);
+				return working;
+			}
+		}
+	}
+	
+	return NULL;
 }

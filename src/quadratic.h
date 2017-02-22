@@ -9,5 +9,6 @@ typedef struct {
 
 void print_quadratic(Quadratic * q);
 int * factor(int n);
+int * get_working_factors(Quadratic * q);
 
 #endif
