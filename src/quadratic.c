@@ -19,6 +19,10 @@ int compare_int(const void* a, const void* b) {
 }
 
 int gcd(int a, int b) {
+	/* Uses the Euclidean algorithm to find the greatest common
+	 * denominator of a and b. Returns a negative if and only if a is
+	 * negative. */
+	
 	int divisor = abs(b == 0 ? a : gcd(b, a % b));
 	return a < 0 ? -1 * divisor : divisor;
 }  
