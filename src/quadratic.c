@@ -148,8 +148,6 @@ int * get_working_factors(Quadratic * q) {
  * @return  a pointer to an array of length 5 representing a factored quadratic
  */
 int * solve(Quadratic * q) {
-	
-	 
 	 Quadratic * temp = malloc(sizeof(Quadratic));
 	 memcpy(temp, q, sizeof(Quadratic));
 	 
