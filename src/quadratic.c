@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-#include "quadratic.h"
 
 #define CHUNK_SIZE 10
 

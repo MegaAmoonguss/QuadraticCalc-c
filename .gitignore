@@ -1,1 +1,6 @@
 *.exe
+
+# Eclipse project settings
+.settings/
+.project
+.cproject
