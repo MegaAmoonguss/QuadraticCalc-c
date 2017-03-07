@@ -55,7 +55,7 @@ int * factor(int n) {
 	for (int i = 1; i < ((int) sqrt(n)) + 1; i++) {
 		/* increase size of factors array if needed */
 		size = CHUNK_SIZE * sizeof(int) * (increases + 1);
-		if (count >= (size / sizeof(int)) - 1) {
+		if (count >= (size / sizeof(int)) - 2) {
 			factors = realloc(factors, size + (CHUNK_SIZE * sizeof(int)));
 			increases++;
 		}
