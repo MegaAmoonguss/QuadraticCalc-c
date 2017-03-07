@@ -4,4 +4,4 @@ OUTFILE = QuadraticCalc-c
 SRCS = src/*.c src/*.h
 
 $(OUTFILE): $(SRCS)
-        $(CC) $(CFLAGS) -o $(OUTFILE) $(SRCS)
+	$(CC) $(CFLAGS) -o $(OUTFILE) $(SRCS)
