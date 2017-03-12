@@ -6,28 +6,16 @@
 
 #define CHUNK_SIZE 10
 
-/**
- * Returns the given Quadratic struct as a string in the form ax^2 + bx
- * + c.
- * 
- * @param q a pointer to the Quadratic struct to create a string out of
- * @return  q as a string
- */
+
+/* Returns the given Quadratic struct as a string in the form ax^2 +
+ * bx + c. */
 char * quadratic_to_string(Quadratic * q) {
 	static char s[50];
 	sprintf(s, "%dx^2 + %dx + %d", q->a, q->b, q->c);
-	
 	return s;
 }
 
-
-/**
- * Compares two integers. For use in qsort().
- * 
- * @param a a pointer to the first int to compare
- * @param b a pointer to the second int to compare
- * @return  0 if a = b, 1 if a > b, -1 if a < b
- */
+/* Compares two integers. For use in qsort(). */
 int compare_int(const void * a, const void * b) {
     if( *(int*)a == *(int*)b ) return 0;
     return *(int*)a < *(int*)b ? -1 : 1;
@@ -187,3 +175,10 @@ int * solve(Quadratic * q) {
 	 return solved;
 }
 
+/* Returns the given factored quadratic in string form. */
+char * factored_to_string(int * solved) {
+	static char s[50];
+	sprintf(s, "%d(%dx + %d)(%dx + %d)\n", *solved, *(solved + 1),
+	*(solved + 2), *(solved + 3), *(solved + 4));
+	return s;
+}

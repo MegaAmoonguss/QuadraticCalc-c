@@ -15,11 +15,11 @@ int main(int argc, char * argv[]) {
 	int * solved = solve(q);
 	
 	if (solved == NULL)
-		printf("Not factorable.\n");
-	else
-		printf("%s = %d(%dx + %d)(%dx + %d)\n",
-		quadratic_to_string(q), *solved, *(solved + 1), *(solved + 2),
-		*(solved + 3), *(solved + 4));
+		printf("Not factorable.");
+	else {
+		printf("%s = %s", quadratic_to_string(q),
+			   factored_to_string(solve(q)));
+	}
 	
 	return 0;
 }

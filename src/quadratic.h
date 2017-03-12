@@ -12,5 +12,6 @@ int gcd(int a, int b);
 int * factor(int n);
 int * get_working_factors(Quadratic * q);
 int * solve(Quadratic * q);
+char * factored_to_string(int * solved);
 
 #endif /* QUADRATIC_H_ */
