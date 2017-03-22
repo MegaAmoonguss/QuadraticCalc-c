@@ -47,8 +47,7 @@ int gcd(int a, int b) {
 int * factor(int n) {
 	if (n == 0)
 		return 0;
-	else if (n < 0)
-		n *= -1;
+	n = abs(n);
 	
 	int * factors = malloc(CHUNK_SIZE * sizeof(int));
 	int count = 0;
@@ -62,17 +61,13 @@ int * factor(int n) {
 			factors = realloc(factors, size + (CHUNK_SIZE * sizeof(int)));
 			increases++;
 		}
-		
 		/* check if i is a factor */
 		if (n % i == 0) {
-			if (i == n / i) {
-				*(factors + count + 1) = i;
+			count++;
+			*(factors + count) = i;
+			if (i != n / i) {
 				count++;
-			}
-			else {
-				*(factors + count + 1) = i;
-				*(factors + count + 2) = n / i;
-				count += 2;
+				*(factors + count) = n / i;
 			}
 		}
 	}
@@ -80,6 +75,8 @@ int * factor(int n) {
 	*factors = count;
 	
 	/* sort the factors */
+	/* note: this always follows the same sort order, can make a function
+	 * specifically for here to sort in O(n) time */
 	qsort(factors + 1, count, sizeof(int), compare_int);
 	
 	return factors;
