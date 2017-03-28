@@ -20,6 +20,6 @@ int main(int argc, char * argv[]) {
 		printf("%s = %s", quadratic_to_string(q),
 			   factored_to_string(solve(q)));
 	}
-	
+
 	return 0;
 }
