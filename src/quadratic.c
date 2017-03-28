@@ -7,8 +7,10 @@
 #define CHUNK_SIZE 10
 
 
-/* Returns the given Quadratic struct as a string in the form ax^2 +
- * bx + c. */
+/*
+ * Returns the given Quadratic struct as a string in the form ax^2 +
+ * bx + c.
+ */
 char * quadratic_to_string(Quadratic * q) {
 	static char s[50];
 	sprintf(s, "%dx^2 + %dx + %d", q->a, q->b, q->c);
@@ -21,28 +23,21 @@ int compare_int(const void * a, const void * b) {
     return *(int*)a < *(int*)b ? -1 : 1;
 }
 
-/**
+/*
  * Returns the greatest common divisor of a and b. Uses the Euclidean
  * algorithm to calculate the greatest common divisor. Will return a
  * negative value if and only if a is negative.
- * 
- * @param a one of the two numbers to find the gcd between
- * @param b the other of the two numbers to find the gcd between
- * @return  the greatest common divisor of a and b
  */
 int gcd(int a, int b) {
 	int divisor = abs(b == 0 ? a : gcd(b, a % b));
 	return a < 0 ? -1 * divisor : divisor;
 }  
 
-/** 
+/*
  * Factors an integer n. Returns a pointer to an array of the
  * factors. The value at the pointer is the number of factors, the
  * factors themselves start at the next index (starting with 1,
  * ending with n).
- * 
- * @param n the number to factor
- * @return  a pointer to the number of factors of n followed by the factors
  */
 int * factor(int n) {
 	if (n == 0)
@@ -82,12 +77,9 @@ int * factor(int n) {
 	return factors;
 }
 
-/**
+/*
  * Finds two factors of q->a * q->c that add up to q->b. Returns a pointer
  * to an array that holds the two factors.
- * 
- * @param q a pointer to the Quadratic struct to get the working factors of
- * @return  a pointer to the working factors of q
  */
 int * get_working_factors(Quadratic * q) {
 	int n = q->a * q->c;
@@ -139,13 +131,10 @@ int * get_working_factors(Quadratic * q) {
 	return NULL;
 }
 
-/**
+/*
  * Returns a pointer to an array of the coefficients of the factored
  * quadratic. The array is in the form [a, b, c, d, e], representing
  * a(bx + c)(dx + e).
- * 
- * @param q a pointer to the Quadratic struct to solve
- * @return  a pointer to an array of length 5 representing a factored quadratic
  */
 int * solve(Quadratic * q) {
 	 Quadratic * temp = malloc(sizeof(Quadratic));
