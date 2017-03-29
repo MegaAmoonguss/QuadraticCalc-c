@@ -6,7 +6,6 @@
 
 #define CHUNK_SIZE 10
 
-
 /*
  * Returns the given Quadratic struct as a string in the form ax^2 +
  * bx + c.
