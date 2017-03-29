@@ -17,10 +17,30 @@ char * quadratic_to_string(Quadratic * q) {
 	return s;
 }
 
-/* Compares two integers. For use in qsort(). */
-int compare_int(const void * a, const void * b) {
-    if( *(int*)a == *(int*)b ) return 0;
-    return *(int*)a < *(int*)b ? -1 : 1;
+/*
+ * Specifically sorts an array created by the algorithm used by the
+ * factor() function.
+ */
+void sort_factors(int * factors, int * sorted, int count) {
+	int index = 0;
+
+	for (int i = 0; i < count; i += 2) {
+		*(sorted + index) = *(factors + i);
+		index++;
+	}
+
+	int start;
+	if (count % 2 == 1)
+		/* if factored number was square */
+		start = count - 2;
+	else
+		/* if factored number was not square */
+		start = count - 1;
+
+	for (int i = start; i > 0; i -= 2) {
+		*(sorted + index) = *(factors + i);
+		index++;
+	}
 }
 
 /*
@@ -70,11 +90,11 @@ int * factor(int n) {
 	*factors = count;
 	
 	/* sort the factors */
-	/* note: this always follows the same sort order, can make a function
-	 * specifically for here to sort in O(n) time */
-	qsort(factors + 1, count, sizeof(int), compare_int);
-	
-	return factors;
+	int * sorted = malloc(sizeof(int) * (count + 1));
+	*sorted = count;
+	sort_factors(factors + 1, sorted + 1, count);
+
+	return sorted;
 }
 
 /*
