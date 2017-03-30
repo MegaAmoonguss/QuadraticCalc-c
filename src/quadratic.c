@@ -160,7 +160,7 @@ int * solve(Quadratic * q) {
 	temp->c /= *solved;
 
 	if (!get_working_factors(temp))
-	return NULL;
+		return NULL;
 	int * working = get_working_factors(temp);
 
 	int expanded[4] = {temp->a, *working, *(working + 1), temp->c};
