@@ -178,54 +178,53 @@ int * solve(Quadratic * q) {
  * bx + c.
  */
 char * quadratic_to_string(Quadratic * q) {
-	static char s[50] = "";
+	static char s[50];
 
 	if (q->a != 1)
 		sprintf(s, strcat(s, "%d"), q->a);
 	strcat(s, "x^2");
 
 	if (q->b > 0)
-		sprintf(s, strcat(s, " + %dx"), q->b);
+		strcat(s, " + ");
 	else if (q->b < 0)
-		sprintf(s, strcat(s, " - %dx"), abs(q->b));
+		strcat(s, " - ");
+	if (q->b != 0) {
+		if (q->b != 1)
+			sprintf(s, strcat(s, "%d"), abs(q->b));
+		strcat(s, "x");
+	}
 
 	if (q->c > 0)
-		sprintf(s, strcat(s, " + %d"), q->c);
+		strcat(s, " + ");
 	else if (q->c < 0)
-		sprintf(s, strcat(s, " - %d"), abs(q->c));
+		strcat(s, " - ");
+	if (q->c != 0)
+		sprintf(s, strcat(s, "%d"), abs(q->c));
 
 	return s;
 }
 
 /* Returns the given factored quadratic in string form. */
 char * factored_to_string(int * solved) {
-	static char s[50] = "";
+	static char s[50];
 
 	if (*solved != 1)
 		sprintf(s, strcat(s, "%d"), *solved);
-	strcat(s, "(");
 
-	if (*(solved + 1) != 1)
-		sprintf(s, strcat(s, "%d"), *(solved + 1));
-	strcat(s, "x");
+	for (int i = 0; i < 2; i++) {
+		strcat(s, "(");
 
-	if (*(solved + 2) > 0)
-		strcat(s, " - ");
-	else
-		strcat(s, " + ");
-	sprintf(s, strcat(s, "%d"), abs(*(solved + 2)));
-	strcat(s, ")(");
+		if (*(solved + (2 * i) + 1) != 1)
+			sprintf(s, strcat(s, "%d"), *(solved + (2 * i) + 1));
+		strcat(s, "x");
 
-	if (*(solved + 3) != 1)
-		sprintf(s, strcat(s, "%d"), *(solved + 3));
-	strcat(s, "x");
-
-	if (*(solved + 4) > 0)
-		strcat(s, " - ");
-	else
-		strcat(s, " + ");
-	sprintf(s, strcat(s, "%d"), abs(*(solved + 4)));
-	strcat(s, ")");
+		if (*(solved + (2 * i) + 2) > 0)
+			strcat(s, " - ");
+		else
+			strcat(s, " + ");
+		sprintf(s, strcat(s, "%d"), abs(*(solved + (2 * i) + 2)));
+		strcat(s, ")");
+	}
 
 	return s;
 }
