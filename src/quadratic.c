@@ -98,41 +98,49 @@ int * get_working_factors(Quadratic * q) {
 	int len = *factors;
 	
 	if (q->b >= 0) {
-		/* check using two positives */
-		for (int i = 0; i < (len / 2) + 1; i++) {
-			if (*(factors + 1 + i) + *(factors + len - i) == q->b) {
-				*working = *(factors + 1 + i);
-				*(working + 1) = *(factors + len - i);
-				return working;
+		if (q->c > 0) {
+			/* check using two positives */
+			for (int i = 0; i < (len / 2) + 1; i++) {
+				if (*(factors + 1 + i) + *(factors + len - i) == q->b) {
+					*working = *(factors + 1 + i);
+					*(working + 1) = *(factors + len - i);
+					return working;
+				}
 			}
 		}
 		
-		/* check using a positive and a smaller or equal negative */
-		for (int i = 0; i < (len / 2) + 1; i++) {
-			if ((-1 * *(factors + 1 + i)) + *(factors + len - i) == q->b) {
-				*working = -1 * *(factors + 1 + i);
-				*(working + 1) = *(factors + len - i);
-				return working;
+		if (q->c < 0) {
+			/* check using a positive and a smaller or equal negative */
+			for (int i = 0; i < (len / 2) + 1; i++) {
+				if ((-1 * *(factors + 1 + i)) + *(factors + len - i) == q->b) {
+					*working = -1 * *(factors + 1 + i);
+					*(working + 1) = *(factors + len - i);
+					return working;
+				}
 			}
 		}
 	}
 	
 	if (q->b < 0) {
-		/* check using two negatives */
-		for (int i = 0; i < (len / 2); i++) {
-			if (*(factors + 1 + i) + *(factors + len - i) == q->b) {
-				*working = *(factors + 1 + i);
-				*(working + 1) = *(factors + len - i);
-				return working;
+		if (q->c > 0) {
+			/* check using two negatives */
+			for (int i = 0; i < (len / 2); i++) {
+				if (*(factors + 1 + i) + *(factors + len - i) == q->b) {
+					*working = *(factors + 1 + i);
+					*(working + 1) = *(factors + len - i);
+					return working;
+				}
 			}
 		}
 		
-		/* check using a positive and a larger negative */
-		for (int i = 0; i < (len / 2); i++) {
-			if (*(factors + 1 + i) + (-1 * *(factors + len - i)) == q->b) {
-				*working = *(factors + 1 + i);
-				*(working + 1) = -1 * *(factors + len - i);
-				return working;
+		if (q->c < 0) {
+			/* check using a positive and a larger negative */
+			for (int i = 0; i < (len / 2); i++) {
+				if (*(factors + 1 + i) + (-1 * *(factors + len - i)) == q->b) {
+					*working = *(factors + 1 + i);
+					*(working + 1) = -1 * *(factors + len - i);
+					return working;
+				}
 			}
 		}
 	}
