@@ -17,7 +17,7 @@ int main(int argc, char * argv[]) {
 	if (solved == NULL)
 		printf("Not factorable.\n");
 	else
-		printf("%s = %s", quadratic_to_string(q),
+		printf("%s = %s\n", quadratic_to_string(q),
 			   factored_to_string(solve(q)));
 
 	return 0;

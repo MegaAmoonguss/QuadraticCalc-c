@@ -182,8 +182,33 @@ int * solve(Quadratic * q) {
 
 /* Returns the given factored quadratic in string form. */
 char * factored_to_string(int * solved) {
-	static char s[50];
-	sprintf(s, "%d(%dx + %d)(%dx + %d)\n", *solved, *(solved + 1),
-	*(solved + 2), *(solved + 3), *(solved + 4));
+	static char s[50] = "";
+
+	if (*solved != 1)
+		sprintf(s, strcat(s, "%d"), *solved);
+	strcat(s, "(");
+
+	if (*(solved + 1) != 1)
+		sprintf(s, strcat(s, "%d"), *(solved + 1));
+	strcat(s, "x");
+
+	if (*(solved + 2) > 0)
+		strcat(s, " - ");
+	else
+		strcat(s, " + ");
+	sprintf(s, strcat(s, "%d"), abs(*(solved + 2)));
+	strcat(s, ")(");
+
+	if (*(solved + 3) != 1)
+		sprintf(s, strcat(s, "%d"), *(solved + 3));
+	strcat(s, "x");
+
+	if (*(solved + 4) > 0)
+		strcat(s, " - ");
+	else
+		strcat(s, " + ");
+	sprintf(s, strcat(s, "%d"), abs(*(solved + 4)));
+	strcat(s, ")");
+
 	return s;
 }
