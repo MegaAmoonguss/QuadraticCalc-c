@@ -8,5 +8,5 @@ $ QuadraticCalc-c 5 -5 -360
 ```
 ```
 $ QuadraticCalc-c 1 0 -9
-x^2 - 9 = (x + 3)(x - 3)
+x^2 - 9 = (x - 3)(x + 3)
 ```
