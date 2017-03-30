@@ -12,10 +12,16 @@ int main(int argc, char * argv[]) {
 	q->a = atoi(argv[1]);
 	q->b = atoi(argv[2]);
 	q->c = atoi(argv[3]);
+
+	if (q->a == 0) {
+		fprintf(stderr, "Not a quadratic.\n");
+		return -1;
+	}
+
 	int * solved = solve(q);
 
 	if (solved == NULL)
-		printf("Not factorable.\n");
+		printf("%s is not factorable.\n", quadratic_to_string(q));
 	else
 		printf("%s = %s\n", quadratic_to_string(q),
 			   factored_to_string(solve(q)));

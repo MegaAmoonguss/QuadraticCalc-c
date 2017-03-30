@@ -7,16 +7,6 @@
 #define CHUNK_SIZE 10
 
 /*
- * Returns the given Quadratic struct as a string in the form ax^2 +
- * bx + c.
- */
-char * quadratic_to_string(Quadratic * q) {
-	static char s[50];
-	sprintf(s, "%dx^2 + %dx + %d", q->a, q->b, q->c);
-	return s;
-}
-
-/*
  * Specifically sorts an array created by the algorithm used by the
  * factor() function.
  */
@@ -156,28 +146,56 @@ int * get_working_factors(Quadratic * q) {
  * a(bx + c)(dx + e).
  */
 int * solve(Quadratic * q) {
-	 Quadratic * temp = malloc(sizeof(Quadratic));
-	 memcpy(temp, q, sizeof(Quadratic));
-	 
-	 int * solved = malloc(5 * sizeof(int));
-	 *solved = gcd(temp->a, gcd(temp->b, temp->c));
-	 
-	 temp->a /= *solved;
-	 temp->b /= *solved;
-	 temp->c /= *solved;
-	 
-	 if (!get_working_factors(temp))
+	if (q->c == 0)
 		return NULL;
-	 int * working = get_working_factors(temp);
-	 
-	 int expanded[4] = {temp->a, *working, *(working + 1), temp->c};
-	 
-	 *(solved + 1) = gcd(expanded[0], expanded[1]);
-	 *(solved + 2) = gcd(expanded[2], expanded[3]);
-	 *(solved + 3) = expanded[0] / *(solved + 1);
-	 *(solved + 4) = expanded[1] / *(solved + 1);
-	 
-	 return solved;
+
+	Quadratic * temp = malloc(sizeof(Quadratic));
+	memcpy(temp, q, sizeof(Quadratic));
+
+	int * solved = malloc(5 * sizeof(int));
+	*solved = gcd(temp->a, gcd(temp->b, temp->c));
+
+	temp->a /= *solved;
+	temp->b /= *solved;
+	temp->c /= *solved;
+
+	if (!get_working_factors(temp))
+	return NULL;
+	int * working = get_working_factors(temp);
+
+	int expanded[4] = {temp->a, *working, *(working + 1), temp->c};
+
+	*(solved + 1) = gcd(expanded[0], expanded[1]);
+	*(solved + 2) = gcd(expanded[2], expanded[3]);
+	*(solved + 3) = expanded[0] / *(solved + 1);
+	*(solved + 4) = expanded[1] / *(solved + 1);
+
+	return solved;
+}
+
+/*
+ * Returns the given Quadratic struct as a string in the form ax^2 +
+ * bx + c.
+ */
+char * quadratic_to_string(Quadratic * q) {
+	static char s[50] = "";
+	//sprintf(s, "%dx^2 + %dx + %d", q->a, q->b, q->c);
+
+	if (q->a != 1)
+		sprintf(s, strcat(s, "%d"), q->a);
+	strcat(s, "x^2");
+
+	if (q->b > 0)
+		sprintf(s, strcat(s, " + %dx"), q->b);
+	else if (q->b < 0)
+		sprintf(s, strcat(s, " - %dx"), abs(q->b));
+
+	if (q->c > 0)
+		sprintf(s, strcat(s, " + %d"), q->c);
+	else if (q->c < 0)
+		sprintf(s, strcat(s, " - %d"), abs(q->c));
+
+	return s;
 }
 
 /* Returns the given factored quadratic in string form. */
