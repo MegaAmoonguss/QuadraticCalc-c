@@ -120,8 +120,8 @@ int * get_working_factors(Quadratic * q) {
 			}
 		}
 	}
-	
-	if (q->b < 0) {
+
+	else if (q->b < 0) {
 		if (q->c > 0) {
 			/* check using two negatives */
 			for (int i = 0; i < (len / 2); i++) {
