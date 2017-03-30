@@ -186,10 +186,13 @@ int * solve(Quadratic * q) {
  * bx + c.
  */
 char * quadratic_to_string(Quadratic * q) {
+	/* NOTE: must implement buffer to all with sprintf and strcat on the same line */
 	static char s[50];
+	char buffer[32];
 
-	if (q->a != 1)
+	if (q->a != 1) {
 		sprintf(s, strcat(s, "%d"), q->a);
+	}
 	strcat(s, "x^2");
 
 	if (q->b > 0)
@@ -197,8 +200,9 @@ char * quadratic_to_string(Quadratic * q) {
 	else if (q->b < 0)
 		strcat(s, " - ");
 	if (q->b != 0) {
-		if (q->b != 1)
+		if (q->b != 1) {
 			sprintf(s, strcat(s, "%d"), abs(q->b));
+		}
 		strcat(s, "x");
 	}
 
@@ -206,9 +210,11 @@ char * quadratic_to_string(Quadratic * q) {
 		strcat(s, " + ");
 	else if (q->c < 0)
 		strcat(s, " - ");
-	if (q->c != 0)
-		sprintf(s, strcat(s, "%d"), abs(q->c));
-
+	if (q->c != 0) {
+		strcat(buffer, "%d");
+		sprintf(s, buffer, abs(q->c));
+	}
+	printf("Done: %s\n", s);
 	return s;
 }
 
