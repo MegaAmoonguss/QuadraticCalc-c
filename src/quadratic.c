@@ -179,7 +179,6 @@ int * solve(Quadratic * q) {
  */
 char * quadratic_to_string(Quadratic * q) {
 	static char s[50] = "";
-	//sprintf(s, "%dx^2 + %dx + %d", q->a, q->b, q->c);
 
 	if (q->a != 1)
 		sprintf(s, strcat(s, "%d"), q->a);
