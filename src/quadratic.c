@@ -96,6 +96,8 @@ int * get_working_factors(Quadratic * q) {
 	int * working = malloc(2 * sizeof(int));
 	
 	int len = *factors;
+	int first;
+	int second;
 	
 	/* KNOWN ISSUE: seems to reverse the signs in the factored form w/
 	 * negative c value.
@@ -105,9 +107,11 @@ int * get_working_factors(Quadratic * q) {
 		if (q->c > 0) {
 			/* check using two positives */
 			for (int i = 0; i < (len / 2) + 1; i++) {
-				if (*(factors + 1 + i) + *(factors + len - i) == q->b) {
-					*working = *(factors + 1 + i);
-					*(working + 1) = *(factors + len - i);
+				first = *(factors + 1 + i);
+				second = *(factors + len - i);
+				if (first + second == q->b) {
+					*working = first;
+					*(working + 1) = second;
 					return working;
 				}
 			}
@@ -116,9 +120,11 @@ int * get_working_factors(Quadratic * q) {
 		if (q->c < 0) {
 			/* check using a positive and a smaller or equal negative */
 			for (int i = 0; i < (len / 2) + 1; i++) {
-				if ((-1 * *(factors + 1 + i)) + *(factors + len - i) == q->b) {
-					*working = -1 * *(factors + 1 + i);
-					*(working + 1) = *(factors + len - i);
+				first = -1 * *(factors + 1 + i);
+				second = *(factors + len - i);
+				if (first + second == q->b) {
+					*working = first;
+					*(working + 1) = second;
 					return working;
 				}
 			}
@@ -129,9 +135,11 @@ int * get_working_factors(Quadratic * q) {
 		if (q->c > 0) {
 			/* check using two negatives */
 			for (int i = 0; i < (len / 2); i++) {
-				if (*(factors + 1 + i) + *(factors + len - i) == q->b) {
-					*working = *(factors + 1 + i);
-					*(working + 1) = *(factors + len - i);
+				first = *(factors + 1 + i);
+				second = *(factors + len - i);
+				if (first + second == q->b) {
+					*working = first;
+					*(working + 1) = second;
 					return working;
 				}
 			}
@@ -140,9 +148,11 @@ int * get_working_factors(Quadratic * q) {
 		if (q->c < 0) {
 			/* check using a positive and a larger negative */
 			for (int i = 0; i < (len / 2); i++) {
-				if (*(factors + 1 + i) + (-1 * *(factors + len - i)) == q->b) {
-					*working = *(factors + 1 + i);
-					*(working + 1) = -1 * *(factors + len - i);
+				first = *(factors + 1 + i);
+				second = -1 * *(factors + len - i);
+				if (first + second == q->b) {
+					*working = first;
+					*(working + 1) = second;
 					return working;
 				}
 			}
@@ -241,9 +251,9 @@ char * factored_to_string(int * solved) {
 		strcat(s, "x");
 
 		if (*(solved + (2 * i) + 2) > 0)
-			strcat(s, " - ");
-		else
 			strcat(s, " + ");
+		else
+			strcat(s, " - ");
 		sprintf(s, strcat(s, "%d"), abs(*(solved + (2 * i) + 2)));
 		strcat(s, ")");
 	}
