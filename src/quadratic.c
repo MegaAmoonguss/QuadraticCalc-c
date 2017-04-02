@@ -53,12 +53,32 @@ int * factor(int n) {
 		return 0;
 	n = abs(n);
 	
+	const int MAX = ((int) sqrt(n)) + 1;
+
+	/* the numbers to check as factors, 1 means possible, 0 means don't check */
+	int checklist[MAX + 1];
+	for (int i = 1; i <= MAX; i++) {
+		checklist[i] = 1;
+	}
+
 	int * factors = malloc(CHUNK_SIZE * sizeof(int));
 	int count = 0;
 	int increases = 0;
-	
 	size_t size;
-	for (int i = 1; i < ((int) sqrt(n)) + 1; i++) {
+	
+	/*
+	 * This part could maybe be improved with a different data structure. The for loop
+	 * goes around the same number of times no matter what, it just doesn't check if
+	 * n % i == 0 each time. This shouldn't provide that much more of an improvement,
+	 * it would be better to find out a way to automatically know the next number to
+	 * check. Possibly some kind of hashing with queues could make this work? Need
+	 * to research.
+	 */
+	for (int i = 1; i < MAX; i++) {
+		/* check if i could be a possible factor */
+		if (checklist[i] == 0)
+			continue;
+
 		/* increase size of factors array if needed */
 		size = CHUNK_SIZE * sizeof(int) * (increases + 1);
 		if (count >= (size / sizeof(int)) - 2) {
@@ -72,6 +92,13 @@ int * factor(int n) {
 			if (i != n / i) {
 				count++;
 				*(factors + count) = n / i;
+			}
+		} else {
+			/* if i isn't a factor, eliminate any multiples of i */
+			int j = i * 2;
+			while (j < MAX) {
+				checklist[j] = 0;
+				j += i;
 			}
 		}
 	}

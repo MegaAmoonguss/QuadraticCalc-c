@@ -7,7 +7,7 @@ int main(int argc, char * argv[]) {
 		fprintf(stderr, "Invalid number of arguments.\n");
 		return -1;
 	}
-	
+
 	Quadratic * q = malloc(sizeof(Quadratic));
 	q->a = atoi(argv[1]);
 	q->b = atoi(argv[2]);
