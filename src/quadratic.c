@@ -133,9 +133,9 @@ int * get_working_factors(Quadratic * q) {
 	else if (q->b < 0) {
 		if (q->c > 0) {
 			/* check using two negatives */
-			for (int i = 0; i < (len / 2); i++) {
-				first = *(factors + 1 + i);
-				second = *(factors + len - i);
+			for (int i = 0; i < (len / 2) + 1; i++) {
+				first = -1 * *(factors + 1 + i);
+				second = -1 * *(factors + len - i);
 				if (first + second == q->b) {
 					*working = first;
 					*(working + 1) = second;
