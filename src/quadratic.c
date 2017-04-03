@@ -101,10 +101,7 @@ int * get_working_factors(Quadratic * q) {
 	int first;
 	int second;
 	
-	/* KNOWN ISSUE: seems to reverse the signs in the factored form w/
-	 * negative c value.
-	 * Example: 1 5 -6 ->  (x - 6)(x + 1)
-	 * 			1 -5 -6 -> (x + 6)(x - 1) */
+	/* Known issue: x^2 - 2x + 1 does not factor out to (x - 1)(x - 1) */
 	if (q->b >= 0) {
 		if (q->c > 0) {
 			/* check using two positives */
