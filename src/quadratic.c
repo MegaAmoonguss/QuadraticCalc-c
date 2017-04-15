@@ -201,7 +201,6 @@ char * quadratic_to_string(Quadratic * q) {
 	static char s[50];
 	char buffer[50];
 
-	strcpy(buffer, s);
 	if (q->a != 1) {
 		strcat(buffer, "%d");
 		sprintf(s, buffer, q->a);
@@ -212,9 +211,9 @@ char * quadratic_to_string(Quadratic * q) {
 		strcat(s, " + ");
 	else if (q->b < 0)
 		strcat(s, " - ");
-	strcpy(buffer, s);
 	if (q->b != 0) {
 		if (q->b != 1) {
+			strcpy(buffer, s);
 			strcat(buffer, "%d");
 			sprintf(s, buffer, abs(q->b));
 		}
@@ -225,8 +224,8 @@ char * quadratic_to_string(Quadratic * q) {
 		strcat(s, " + ");
 	else if (q->c < 0)
 		strcat(s, " - ");
-	strcpy(buffer, s);
 	if (q->c != 0) {
+		strcpy(buffer, s);
 		strcat(buffer, "%d");
 		sprintf(s, buffer, abs(q->c));
 	}
