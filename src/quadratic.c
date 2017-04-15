@@ -172,12 +172,12 @@ int * solve(Quadratic * q) {
 	Quadratic * temp = malloc(sizeof(Quadratic));
 	memcpy(temp, q, sizeof(Quadratic));
 
-	int * solved = malloc(5 * sizeof(int));
-	*solved = gcd(temp->a, gcd(temp->b, temp->c));
+	static int solved[5];
+	solved[0] = gcd(temp->a, gcd(temp->b, temp->c));
 
-	temp->a /= *solved;
-	temp->b /= *solved;
-	temp->c /= *solved;
+	temp->a /= solved[0];
+	temp->b /= solved[0];
+	temp->c /= solved[0];
 
 	if (!get_working_factors(temp))
 		return NULL;
@@ -185,10 +185,10 @@ int * solve(Quadratic * q) {
 
 	int expanded[4] = {temp->a, *working, *(working + 1), temp->c};
 
-	*(solved + 1) = gcd(expanded[0], expanded[1]);
-	*(solved + 2) = gcd(expanded[2], expanded[3]);
-	*(solved + 3) = expanded[0] / *(solved + 1);
-	*(solved + 4) = expanded[1] / *(solved + 1);
+	solved[1] = gcd(expanded[0], expanded[1]);
+	solved[2] = gcd(expanded[2], expanded[3]);
+	solved[3] = expanded[0] / solved[1];
+	solved[4] = expanded[1] / solved[1];
 
 	return solved;
 }
@@ -201,10 +201,8 @@ char * quadratic_to_string(Quadratic * q) {
 	static char s[50];
 	char buffer[50];
 
-	if (q->a != 1) {
-		strcat(buffer, "%d");
-		sprintf(s, buffer, q->a);
-	}
+	if (q->a != 1)
+		sprintf(s, strcat(s, "%d"), q->a);
 	strcat(s, "x^2");
 
 	if (q->b > 0)
