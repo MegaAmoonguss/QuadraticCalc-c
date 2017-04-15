@@ -199,7 +199,7 @@ int * solve(Quadratic * q) {
  */
 char * quadratic_to_string(Quadratic * q) {
 	static char s[50];
-	char buffer[32];
+	char buffer[50];
 
 	strcpy(buffer, s);
 	if (q->a != 1) {
