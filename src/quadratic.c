@@ -179,9 +179,9 @@ int * solve(Quadratic * q) {
 	temp->b /= solved[0];
 	temp->c /= solved[0];
 
-	if (!get_working_factors(temp))
-		return NULL;
 	int * working = get_working_factors(temp);
+	if (!working)
+		return NULL;
 
 	int expanded[4] = {temp->a, *working, *(working + 1), temp->c};
 
