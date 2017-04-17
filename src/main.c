@@ -18,12 +18,12 @@ int main(int argc, char * argv[]) {
 		return -1;
 	}
 
-	int * solved = solve(q);
+	int * factored = solve(q);
 
-	if (solved == NULL)
+	if (factored == NULL)
 		printf("%s is not factorable.\n", quadratic_to_string(q));
 	else
-		printf("%s = %s\n", quadratic_to_string(q), factored_to_string(solve(q)));
+		printf("%s = %s\n", quadratic_to_string(q), factored_to_string(factored));
 
 	return 0;
 }
